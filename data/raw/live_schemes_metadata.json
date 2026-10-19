@@ -1,0 +1,47 @@
+[
+  {
+    "fund_house": "Aditya Birla Sun Life Mutual Fund",
+    "scheme_type": "Open Ended Schemes",
+    "scheme_category": "Income/Debt Oriented Schemes - Banking and PSU Debt Fund",
+    "scheme_code": 119551,
+    "scheme_name": "Aditya Birla Sun Life Banking & PSU Debt Fund - Direct Plan - IDCW-Re-investment",
+    "isin_growth": "INF209KA12Z1",
+    "isin_div_reinvestment": "INF209KA13Z9"
+  },
+  {
+    "fund_house": "Axis Mutual Fund",
+    "scheme_type": "Open Ended Schemes",
+    "scheme_category": "Equity Schemes - ELSS- Tax Saver Fund",
+    "scheme_code": 120503,
+    "scheme_name": "Axis ELSS- Tax Saver Fund - Direct Plan - Growth Option",
+    "isin_growth": "INF846K01EW2",
+    "isin_div_reinvestment": null
+  },
+  {
+    "fund_house": "Nippon India Mutual Fund",
+    "scheme_type": "Open Ended Schemes",
+    "scheme_category": "Equity Scheme - Large Cap Fund",
+    "scheme_code": 118632,
+    "scheme_name": "Nippon India Large Cap Fund - Direct Plan - Growth Option",
+    "isin_growth": "INF204K01XI3",
+    "isin_div_reinvestment": null
+  },
+  {
+    "fund_house": "HDFC Mutual Fund",
+    "scheme_type": "Open Ended Schemes",
+    "scheme_category": "Debt Scheme - Money Market Fund",
+    "scheme_code": 119092,
+    "scheme_name": "HDFC Money Market Fund - Direct Plan - Growth Option",
+    "isin_growth": "INF179KB1HU9",
+    "isin_div_reinvestment": null
+  },
+  {
+    "fund_house": "quant Mutual Fund",
+    "scheme_type": "Open Ended Schemes",
+    "scheme_category": "Equity Scheme - Mid Cap Fund",
+    "scheme_code": 120841,
+    "scheme_name": "Quant Mid Cap Fund - Direct Plan - Growth Option",
+    "isin_growth": "INF966L01887",
+    "isin_div_reinvestment": null
+  }
+]

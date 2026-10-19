@@ -1,0 +1,24 @@
+DATA QUALITY & INTEGRITY SUMMARY REPORT
+============================================================
+Total Datasets Ingested: 10
+Total Master Schemes:     40
+NAV History Coverage:     40 / 40 (100.0%)
+AMFI Referential Integrity: PERFECT (0 missing)
+
+Dataset Row Counts & Health Summary:
+ - fund_master              :      40 rows | 15 cols | Status: 1 anomaly/observation(s)
+ - nav_history              :  46,000 rows |  3 cols | Status: 1 anomaly/observation(s)
+ - aum_by_fund_house        :      90 rows |  5 cols | Status: 1 anomaly/observation(s)
+ - monthly_sip_inflows      :      48 rows |  6 cols | Status: 2 anomaly/observation(s)
+ - category_inflows         :     144 rows |  3 cols | Status: 1 anomaly/observation(s)
+ - industry_folio_count     :      21 rows |  6 cols | Status: 1 anomaly/observation(s)
+ - scheme_performance       :      40 rows | 19 cols | Status: Clean
+ - investor_transactions    :  32,778 rows | 13 cols | Status: 1 anomaly/observation(s)
+ - portfolio_holdings       :     322 rows |  8 cols | Status: 1 anomaly/observation(s)
+ - benchmark_indices        :   8,050 rows |  3 cols | Status: 1 anomaly/observation(s)
+
+Notable Findings & Data Transformation Requirements:
+ 1. monthly_sip_inflows: yoy_growth_pct has 12 nulls due to initial 2022 baseline period.
+ 2. Date parsing: All date columns are string objects (YYYY-MM-DD or YYYY-MM) needing pd.to_datetime().
+ 3. NAV History: Contains exactly 1,150 trading records per scheme across 2022-01-03 to 2026-05-29.
+ 4. AMFI Reference Integrity: 100% matched across fund_master, nav_history, and investor_transactions.
