@@ -1,8 +1,6 @@
-# Mutual Fund Analytics Engineering Platform
+# Bluestock Mutual Fund Analytics Engineering Platform
 
-## Day 1: Data Ingestion, Profiling & Live NAV Pipeline
-
-A production-ready data ingestion and analytics repository for Indian Mutual Funds, incorporating historical NAV data, investor transactions, fund master schemas, industry-level inflows, and live API feeds from `mfapi.in`.
+A production-ready data engineering and analytics repository for Indian Mutual Funds, incorporating raw ingestion, automated data cleaning, forward-filling algorithms, star schema dimensional modeling, SQLite database integration, and analytical SQL querying.
 
 ---
 
@@ -10,6 +8,12 @@ A production-ready data ingestion and analytics repository for Indian Mutual Fun
 
 ```text
 mutual_fund_analysis/
+│
+├── bluestock_mf.db                # SQLite Database (Star Schema loaded with SQLAlchemy)
+├── schema.sql                     # Star Schema DDL with PKs, FKs, and Indexes
+├── queries.sql                    # 10 Analytical SQL Queries (AUM, NAV trends, YoY growth, Demographics)
+├── data_dictionary.md             # Comprehensive Data Dictionary & Column Business Definitions
+├── clean_and_load_db.py           # Day 2 Automated Cleaning, Star Schema Creation & SQLite ETL
 │
 ├── data/
 │   ├── raw/                       # Raw input CSV datasets & API dumps
@@ -23,105 +27,107 @@ mutual_fund_analysis/
 │   │   ├── 08_investor_transactions.csv
 │   │   ├── 09_portfolio_holdings.csv
 │   │   ├── 10_benchmark_indices.csv
-│   │   ├── live_nav_125497_raw.csv
-│   │   ├── live_nav_5_key_schemes.csv
-│   │   └── live_schemes_metadata.json
-│   └── processed/                 # Cleaned, transformed, and feature-engineered datasets
+│   │   └── live_nav_*.csv
+│   └── processed/                 # 10 Cleaned, validated, and normalized CSV datasets
+│       ├── 01_fund_master_cleaned.csv
+│       ├── 02_nav_history_cleaned.csv          # Forward-filled weekends & holidays (64,320 rows)
+│       ├── 03_aum_by_fund_house_cleaned.csv
+│       ├── 04_monthly_sip_inflows_cleaned.csv
+│       ├── 05_category_inflows_cleaned.csv
+│       ├── 06_industry_folio_count_cleaned.csv
+│       ├── 07_scheme_performance_cleaned.csv   # Verified numeric returns & SEBI TER bounds
+│       ├── 08_investor_transactions_cleaned.csv# Standardized types (SIP/Lumpsum/Redemption)
+│       ├── 09_portfolio_holdings_cleaned.csv
+│       ├── 10_benchmark_indices_cleaned.csv
+│       └── dim_date.csv                        # Generated 5-year calendar dimension
+│
+├── sql/                           # DDL schemas and analytical SQL queries
+│   ├── schema.sql
+│   └── queries.sql
 │
 ├── notebooks/                     # Exploratory Data Analysis & prototyping
 │   └── 01_data_ingestion_and_eda.ipynb
 │
-├── sql/                           # DDL schemas and analytical SQL queries
-│   └── schema.sql
-│
 ├── dashboard/                     # Interactive Streamlit & Plotly BI application
 │   └── app.py
 │
-├── reports/                       # Data quality audits and executive summaries
-│   └── data_quality_summary.txt
+├── reports/                       # Data quality audits, data dictionaries, and summaries
+│   ├── data_quality_summary.txt
+│   └── data_dictionary.md
 │
-├── data_ingestion.py              # Core data loading, profiling, & validation pipeline
-├── live_nav_fetch.py              # Real-time NAV fetcher via mfapi.in REST API
+├── data_ingestion.py              # Day 1: Data loading, profiling, & validation pipeline
+├── live_nav_fetch.py              # Day 1: Real-time NAV fetcher via mfapi.in REST API
 ├── requirements.txt               # Project Python package dependencies
-├── .gitignore                     # Git ignore rules for data science
-└── README.md                      # Project documentation and execution guide
+└── .gitignore                     # Git ignore rules for data science
 ```
 
 ---
 
-## ⚡ Quickstart & Installation
+## 🌟 Day 2 Milestone: Cleaned Data & SQLite Star Schema
 
-### 1. Prerequisites
-- Python 3.10+
-- Git
-
-### 2. Environment Setup & Dependency Installation
-```bash
-# Clone the repository
-git clone <your-github-repo-url>
-cd mutual_fund_analysis
-
-# Install all required packages
-pip install -r requirements.txt
-```
-
-### 3. Run Data Ingestion & Data Profiling
-```bash
-python data_ingestion.py
-```
-This loads all 10 datasets, displays shapes and dtypes, validates AMFI code integrity, flags anomalies, and writes an executive summary to `reports/data_quality_summary.txt`.
-
-### 4. Run Live NAV API Fetcher
-```bash
-python live_nav_fetch.py
-```
-This fetches real-time NAV records from `https://api.mfapi.in/mf/{scheme_code}` for:
-- **125497**: HDFC Top 100 Direct
-- **119551**: SBI Bluechip
-- **120503**: ICICI Bluechip
-- **118632**: Nippon Large Cap
-- **119092**: Axis Bluechip
-- **120841**: Kotak Bluechip
-
-Output files are stored directly in `data/raw/`.
-
-### 5. Launch Interactive Dashboard (Optional)
-```bash
-streamlit run dashboard/app.py
-```
+### 1. Data Cleaning Highlights
+- **`nav_history`**:
+  - Reindexed each fund against complete calendar dates (2022 to 2026).
+  - Forward-filled (`.ffill()`) NAV values for Saturdays, Sundays, and public holidays (added 18,320 non-trading records, bringing the total to **64,320 rows**).
+  - Calculated daily percentage returns (`daily_return_pct`).
+  - Validated zero negative or zero NAV entries (`NAV > 0`).
+- **`investor_transactions`**:
+  - Standardized transaction types to exact title-case enums: `SIP`, `Lumpsum`, `Redemption`.
+  - Enforced `amount_inr > 0` validation (range: ₹400 to ₹5,97,498).
+  - Standardized KYC status to `Verified` and `Pending`.
+  - Parsed all dates into ISO `YYYY-MM-DD` format.
+- **`scheme_performance`**:
+  - Validated that all trailing return metrics (1-yr, 3-yr, 5-yr, benchmark) and risk statistics (Sharpe, Sortino, Alpha, Beta) are numeric floats.
+  - Verified that all Expense Ratios lie strictly within the SEBI regulatory range of **0.10% to 2.50%** (actual range: 0.55% to 1.64%).
+- **Calendar Dimension (`dim_date`)**:
+  - Generated a dedicated 1,826-day calendar dimension (2022 to 2026) supporting fiscal year, fiscal quarter, day-of-week, and weekend flags.
 
 ---
 
-## 🔍 Data Quality Summary & Dataset Profiles
+## 🏛️ Star Schema Architecture (`bluestock_mf.db`)
 
-| Dataset | Rows | Columns | Quality Status & Anomalies |
-| :--- | :---: | :---: | :--- |
-| `01_fund_master` | 40 | 15 | Clean. 40 schemes across 10 AMCs. Launch dates formatted as YYYY-MM-DD strings. |
-| `02_nav_history` | 46,000 | 3 | Exactly 1,150 trading days per scheme (2022-01-03 to 2026-05-29). No missing values. |
-| `03_aum_by_fund_house` | 90 | 5 | Quarterly AUM figures for top 10 AMCs. |
-| `04_monthly_sip_inflows`| 48 | 6 | 12 null values in `yoy_growth_pct` (first 12 months in 2022 due to lack of 2021 prior baseline). |
-| `05_category_inflows` | 144 | 3 | Monthly net inflows by scheme category (Equity, Debt, Hybrid, Liquid). |
-| `06_industry_folio_count`| 21 | 6 | Bi-monthly / quarterly industry folio totals. |
-| `07_scheme_performance`| 40 | 19 | 100% complete metrics: 1/3/5-year returns, Sharpe, Sortino, Alpha, Beta, Max Drawdown. |
-| `08_investor_transactions`| 32,778| 13 | 5,000 unique investors across 40 schemes. Transactions span 2024-01-01 to 2025-05-30. |
-| `09_portfolio_holdings` | 322 | 8 | Top 10 portfolio holdings for 34 equity schemes as of 2025-12-31. |
-| `10_benchmark_indices` | 8,050 | 3 | Historical daily close for 7 major indices (NIFTY 50, NIFTY 100, NIFTY Midcap 150, etc.). |
+Loaded using **SQLAlchemy** `create_engine` and Pandas `to_sql()` with strict primary and foreign key constraints:
 
-### AMFI Referential Integrity Audit
-- **Master Schemes**: 40
-- **Schemes in NAV History**: 40
-- **Unmatched AMFI Codes**: **0** (100% matched, zero orphan records).
+| Table Name | Role | Primary Key | Foreign Keys | Row Count |
+| :--- | :--- | :--- | :--- | :---: |
+| **`dim_fund`** | Dimension | `amfi_code` | — | **40** |
+| **`dim_date`** | Dimension | `date` | — | **1,826** |
+| **`fact_nav`** | Fact | (`amfi_code`, `date`) | `amfi_code` ➔ `dim_fund`, `date` ➔ `dim_date` | **64,320** |
+| **`fact_transactions`** | Fact | `transaction_id` | `amfi_code` ➔ `dim_fund`, `transaction_date` ➔ `dim_date` | **32,778** |
+| **`fact_performance`** | Fact | `amfi_code` | `amfi_code` ➔ `dim_fund` | **40** |
+| **`fact_aum`** | Fact | (`date`, `fund_house`) | `date` ➔ `dim_date` | **90** |
+| **`monthly_sip_inflows`** | Supporting Fact | `month` | — | **48** |
+| **`category_inflows`** | Supporting Fact | (`month`, `category`) | — | **144** |
+| **`industry_folio_count`**| Supporting Fact | `month` | — | **21** |
+| **`portfolio_holdings`** | Supporting Fact | (`amfi_code`, `stock_symbol`)| `amfi_code` ➔ `dim_fund` | **322** |
+| **`benchmark_indices`** | Supporting Fact | (`date`, `index_name`) | `date` ➔ `dim_date` | **8,050** |
 
 ---
 
-## 🚀 Pushing to GitHub
+## 🔍 Analytical SQL Queries Implemented (`queries.sql`)
 
-To push this initialized repository to GitHub:
+1. **Top 5 Funds by AUM**: Flags highest capitalized schemes across Equity and Debt.
+2. **Average NAV per Month**: Tracks monthly market averages and benchmark scheme NAV evolution.
+3. **Monthly SIP Inflow & YoY Growth**: Computes rolling 12-month YoY growth using `LAG()`.
+4. **Transactions by State**: Aggregates state-wise order volume, ticket size, and KYC compliance.
+5. **Cost-Efficient Funds (< 1.0% TER)**: Screens low-cost Direct plans with high Morningstar ratings.
+6. **Top 3 Risk-Adjusted Funds per Category**: Ranks funds by Sharpe Ratio using window function `DENSE_RANK()`.
+7. **Category Net Inflows & Market Share**: Measures capital inflows across Liquid, Equity, and Thematic funds.
+8. **Investor Demographics (T30 vs B30 & Age)**: Identifies ticket sizes and SIP adoption across cohorts.
+9. **Portfolio Stock Concentration**: Uncovers top institutional equity holdings (e.g. Axis Bank, Reliance, Bharti Airtel).
+10. **Alpha Generation Audit**: Evaluates scheme 3-year CAGR outperformance against benchmark indices.
 
-1. Create a new empty repository on [GitHub](https://github.com/new) named `mutual-fund-analytics` (do not initialize with README or license).
-2. Run the following terminal commands:
+---
+
+## ⚡ Execution Instructions
+
+### 1. Run Data Cleaning & Database Build
 ```bash
-git remote add origin https://github.com/<your-username>/mutual-fund-analytics.git
-git branch -M main
-git push -u origin main
+python clean_and_load_db.py
 ```
+
+### 2. Execute SQL Queries via SQLite CLI / Python
+```bash
+sqlite3 bluestock_mf.db < queries.sql
+```
+*(Or query interactively via Python, DBeaver, or VS Code SQLite Viewer).*
