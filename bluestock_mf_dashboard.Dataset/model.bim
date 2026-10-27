@@ -1,0 +1,771 @@
+{
+  "name": "bluestock_mf_dashboard",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "fastCombine": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "tables": [
+      {
+        "name": "dim_fund",
+        "columns": [
+          {
+            "name": "amfi_code",
+            "dataType": "int64",
+            "sourceColumn": "amfi_code"
+          },
+          {
+            "name": "fund_house",
+            "dataType": "string",
+            "sourceColumn": "fund_house"
+          },
+          {
+            "name": "scheme_name",
+            "dataType": "string",
+            "sourceColumn": "scheme_name"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category"
+          },
+          {
+            "name": "sub_category",
+            "dataType": "string",
+            "sourceColumn": "sub_category"
+          },
+          {
+            "name": "plan",
+            "dataType": "string",
+            "sourceColumn": "plan"
+          },
+          {
+            "name": "launch_date",
+            "dataType": "string",
+            "sourceColumn": "launch_date"
+          },
+          {
+            "name": "benchmark",
+            "dataType": "string",
+            "sourceColumn": "benchmark"
+          },
+          {
+            "name": "expense_ratio_pct",
+            "dataType": "double",
+            "sourceColumn": "expense_ratio_pct"
+          },
+          {
+            "name": "exit_load_pct",
+            "dataType": "double",
+            "sourceColumn": "exit_load_pct"
+          },
+          {
+            "name": "min_sip_amount",
+            "dataType": "double",
+            "sourceColumn": "min_sip_amount"
+          },
+          {
+            "name": "min_lumpsum_amount",
+            "dataType": "double",
+            "sourceColumn": "min_lumpsum_amount"
+          },
+          {
+            "name": "fund_manager",
+            "dataType": "string",
+            "sourceColumn": "fund_manager"
+          },
+          {
+            "name": "risk_category",
+            "dataType": "string",
+            "sourceColumn": "risk_category"
+          },
+          {
+            "name": "sebi_category_code",
+            "dataType": "string",
+            "sourceColumn": "sebi_category_code"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_fund-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\01_fund_master_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_nav",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "string",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "amfi_code",
+            "dataType": "int64",
+            "sourceColumn": "amfi_code"
+          },
+          {
+            "name": "nav",
+            "dataType": "double",
+            "sourceColumn": "nav"
+          },
+          {
+            "name": "is_forward_filled",
+            "dataType": "int64",
+            "sourceColumn": "is_forward_filled"
+          },
+          {
+            "name": "daily_return_pct",
+            "dataType": "double",
+            "sourceColumn": "daily_return_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_nav-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\02_nav_history_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_aum",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "string",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "fund_house",
+            "dataType": "string",
+            "sourceColumn": "fund_house"
+          },
+          {
+            "name": "aum_lakh_crore",
+            "dataType": "double",
+            "sourceColumn": "aum_lakh_crore"
+          },
+          {
+            "name": "aum_crore",
+            "dataType": "int64",
+            "sourceColumn": "aum_crore"
+          },
+          {
+            "name": "num_schemes",
+            "dataType": "int64",
+            "sourceColumn": "num_schemes"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_aum-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\03_aum_by_fund_house_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "monthly_sip_inflows",
+        "columns": [
+          {
+            "name": "month",
+            "dataType": "string",
+            "sourceColumn": "month"
+          },
+          {
+            "name": "sip_inflow_crore",
+            "dataType": "int64",
+            "sourceColumn": "sip_inflow_crore"
+          },
+          {
+            "name": "active_sip_accounts_crore",
+            "dataType": "double",
+            "sourceColumn": "active_sip_accounts_crore"
+          },
+          {
+            "name": "new_sip_accounts_lakh",
+            "dataType": "double",
+            "sourceColumn": "new_sip_accounts_lakh"
+          },
+          {
+            "name": "sip_aum_lakh_crore",
+            "dataType": "double",
+            "sourceColumn": "sip_aum_lakh_crore"
+          },
+          {
+            "name": "yoy_growth_pct",
+            "dataType": "double",
+            "sourceColumn": "yoy_growth_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "monthly_sip_inflows-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\04_monthly_sip_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "category_inflows",
+        "columns": [
+          {
+            "name": "month",
+            "dataType": "string",
+            "sourceColumn": "month"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category"
+          },
+          {
+            "name": "net_inflow_crore",
+            "dataType": "double",
+            "sourceColumn": "net_inflow_crore"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "category_inflows-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\05_category_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "industry_folio_count",
+        "columns": [
+          {
+            "name": "month",
+            "dataType": "string",
+            "sourceColumn": "month"
+          },
+          {
+            "name": "total_folios_crore",
+            "dataType": "double",
+            "sourceColumn": "total_folios_crore"
+          },
+          {
+            "name": "equity_folios_crore",
+            "dataType": "double",
+            "sourceColumn": "equity_folios_crore"
+          },
+          {
+            "name": "debt_folios_crore",
+            "dataType": "double",
+            "sourceColumn": "debt_folios_crore"
+          },
+          {
+            "name": "hybrid_folios_crore",
+            "dataType": "double",
+            "sourceColumn": "hybrid_folios_crore"
+          },
+          {
+            "name": "others_folios_crore",
+            "dataType": "double",
+            "sourceColumn": "others_folios_crore"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "industry_folio_count-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\06_industry_folio_count_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_performance",
+        "columns": [
+          {
+            "name": "amfi_code",
+            "dataType": "int64",
+            "sourceColumn": "amfi_code"
+          },
+          {
+            "name": "scheme_name",
+            "dataType": "string",
+            "sourceColumn": "scheme_name"
+          },
+          {
+            "name": "fund_house",
+            "dataType": "string",
+            "sourceColumn": "fund_house"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category"
+          },
+          {
+            "name": "plan",
+            "dataType": "string",
+            "sourceColumn": "plan"
+          },
+          {
+            "name": "return_1yr_pct",
+            "dataType": "double",
+            "sourceColumn": "return_1yr_pct"
+          },
+          {
+            "name": "return_3yr_pct",
+            "dataType": "double",
+            "sourceColumn": "return_3yr_pct"
+          },
+          {
+            "name": "return_5yr_pct",
+            "dataType": "double",
+            "sourceColumn": "return_5yr_pct"
+          },
+          {
+            "name": "benchmark_3yr_pct",
+            "dataType": "double",
+            "sourceColumn": "benchmark_3yr_pct"
+          },
+          {
+            "name": "alpha",
+            "dataType": "double",
+            "sourceColumn": "alpha"
+          },
+          {
+            "name": "beta",
+            "dataType": "double",
+            "sourceColumn": "beta"
+          },
+          {
+            "name": "sharpe_ratio",
+            "dataType": "double",
+            "sourceColumn": "sharpe_ratio"
+          },
+          {
+            "name": "sortino_ratio",
+            "dataType": "double",
+            "sourceColumn": "sortino_ratio"
+          },
+          {
+            "name": "std_dev_ann_pct",
+            "dataType": "double",
+            "sourceColumn": "std_dev_ann_pct"
+          },
+          {
+            "name": "max_drawdown_pct",
+            "dataType": "double",
+            "sourceColumn": "max_drawdown_pct"
+          },
+          {
+            "name": "aum_crore",
+            "dataType": "int64",
+            "sourceColumn": "aum_crore"
+          },
+          {
+            "name": "expense_ratio_pct",
+            "dataType": "double",
+            "sourceColumn": "expense_ratio_pct"
+          },
+          {
+            "name": "morningstar_rating",
+            "dataType": "int64",
+            "sourceColumn": "morningstar_rating"
+          },
+          {
+            "name": "risk_grade",
+            "dataType": "string",
+            "sourceColumn": "risk_grade"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_performance-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\07_scheme_performance_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_transactions",
+        "columns": [
+          {
+            "name": "transaction_id",
+            "dataType": "int64",
+            "sourceColumn": "transaction_id"
+          },
+          {
+            "name": "investor_id",
+            "dataType": "string",
+            "sourceColumn": "investor_id"
+          },
+          {
+            "name": "transaction_date",
+            "dataType": "string",
+            "sourceColumn": "transaction_date"
+          },
+          {
+            "name": "amfi_code",
+            "dataType": "int64",
+            "sourceColumn": "amfi_code"
+          },
+          {
+            "name": "transaction_type",
+            "dataType": "string",
+            "sourceColumn": "transaction_type"
+          },
+          {
+            "name": "amount_inr",
+            "dataType": "int64",
+            "sourceColumn": "amount_inr"
+          },
+          {
+            "name": "state",
+            "dataType": "string",
+            "sourceColumn": "state"
+          },
+          {
+            "name": "city",
+            "dataType": "string",
+            "sourceColumn": "city"
+          },
+          {
+            "name": "city_tier",
+            "dataType": "string",
+            "sourceColumn": "city_tier"
+          },
+          {
+            "name": "age_group",
+            "dataType": "string",
+            "sourceColumn": "age_group"
+          },
+          {
+            "name": "gender",
+            "dataType": "string",
+            "sourceColumn": "gender"
+          },
+          {
+            "name": "annual_income_lakh",
+            "dataType": "double",
+            "sourceColumn": "annual_income_lakh"
+          },
+          {
+            "name": "payment_mode",
+            "dataType": "string",
+            "sourceColumn": "payment_mode"
+          },
+          {
+            "name": "kyc_status",
+            "dataType": "string",
+            "sourceColumn": "kyc_status"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_transactions-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\08_investor_transactions_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "portfolio_holdings",
+        "columns": [
+          {
+            "name": "amfi_code",
+            "dataType": "int64",
+            "sourceColumn": "amfi_code"
+          },
+          {
+            "name": "stock_symbol",
+            "dataType": "string",
+            "sourceColumn": "stock_symbol"
+          },
+          {
+            "name": "stock_name",
+            "dataType": "string",
+            "sourceColumn": "stock_name"
+          },
+          {
+            "name": "sector",
+            "dataType": "string",
+            "sourceColumn": "sector"
+          },
+          {
+            "name": "weight_pct",
+            "dataType": "double",
+            "sourceColumn": "weight_pct"
+          },
+          {
+            "name": "market_value_cr",
+            "dataType": "double",
+            "sourceColumn": "market_value_cr"
+          },
+          {
+            "name": "current_price_inr",
+            "dataType": "double",
+            "sourceColumn": "current_price_inr"
+          },
+          {
+            "name": "portfolio_date",
+            "dataType": "string",
+            "sourceColumn": "portfolio_date"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "portfolio_holdings-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\09_portfolio_holdings_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "benchmark_indices",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "string",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "index_name",
+            "dataType": "string",
+            "sourceColumn": "index_name"
+          },
+          {
+            "name": "close_value",
+            "dataType": "double",
+            "sourceColumn": "close_value"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "benchmark_indices-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\10_benchmark_indices_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_date",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "string",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year"
+          },
+          {
+            "name": "quarter",
+            "dataType": "int64",
+            "sourceColumn": "quarter"
+          },
+          {
+            "name": "month",
+            "dataType": "int64",
+            "sourceColumn": "month"
+          },
+          {
+            "name": "month_name",
+            "dataType": "string",
+            "sourceColumn": "month_name"
+          },
+          {
+            "name": "day",
+            "dataType": "int64",
+            "sourceColumn": "day"
+          },
+          {
+            "name": "day_of_week",
+            "dataType": "int64",
+            "sourceColumn": "day_of_week"
+          },
+          {
+            "name": "day_name",
+            "dataType": "string",
+            "sourceColumn": "day_name"
+          },
+          {
+            "name": "is_weekend",
+            "dataType": "int64",
+            "sourceColumn": "is_weekend"
+          },
+          {
+            "name": "fiscal_year",
+            "dataType": "string",
+            "sourceColumn": "fiscal_year"
+          },
+          {
+            "name": "fiscal_quarter",
+            "dataType": "string",
+            "sourceColumn": "fiscal_quarter"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_date-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\dim_date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Rel_fact_nav_dim_fund",
+        "fromTable": "fact_nav",
+        "fromColumn": "amfi_code",
+        "toTable": "dim_fund",
+        "toColumn": "amfi_code"
+      },
+      {
+        "name": "Rel_fact_nav_dim_date",
+        "fromTable": "fact_nav",
+        "fromColumn": "date",
+        "toTable": "dim_date",
+        "toColumn": "date"
+      },
+      {
+        "name": "Rel_fact_transactions_dim_fund",
+        "fromTable": "fact_transactions",
+        "fromColumn": "amfi_code",
+        "toTable": "dim_fund",
+        "toColumn": "amfi_code"
+      },
+      {
+        "name": "Rel_fact_transactions_dim_date",
+        "fromTable": "fact_transactions",
+        "fromColumn": "transaction_date",
+        "toTable": "dim_date",
+        "toColumn": "date"
+      },
+      {
+        "name": "Rel_fact_performance_dim_fund",
+        "fromTable": "fact_performance",
+        "fromColumn": "amfi_code",
+        "toTable": "dim_fund",
+        "toColumn": "amfi_code"
+      },
+      {
+        "name": "Rel_portfolio_holdings_dim_fund",
+        "fromTable": "portfolio_holdings",
+        "fromColumn": "amfi_code",
+        "toTable": "dim_fund",
+        "toColumn": "amfi_code"
+      },
+      {
+        "name": "Rel_benchmark_indices_dim_date",
+        "fromTable": "benchmark_indices",
+        "fromColumn": "date",
+        "toTable": "dim_date",
+        "toColumn": "date"
+      }
+    ]
+  }
+}

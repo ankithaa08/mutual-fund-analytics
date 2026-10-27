@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../bluestock_mf_dashboard.Dataset"
+    },
+    "byConnection": null
+  }
+}

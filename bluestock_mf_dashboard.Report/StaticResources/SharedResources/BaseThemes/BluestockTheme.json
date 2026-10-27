@@ -1,0 +1,18 @@
+{
+  "name": "Bluestock Corporate Theme",
+  "dataColors": [
+    "#0047AB",
+    "#002D62",
+    "#00C48C",
+    "#FF8C00",
+    "#6366F1",
+    "#06B6D4",
+    "#10B981",
+    "#F59E0B",
+    "#EC4899",
+    "#64748B"
+  ],
+  "background": "#F8FAFC",
+  "foreground": "#0047AB",
+  "tableAccent": "#0047AB"
+}

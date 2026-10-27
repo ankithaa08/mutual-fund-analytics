@@ -1,0 +1,226 @@
+{
+  "config": "{\"version\": \"5.50\", \"themeCollection\": {\"baseTheme\": {\"name\": \"BluestockTheme\", \"version\": \"1.0\", \"type\": 2}}}",
+  "layoutOptimization": 0,
+  "sections": [
+    {
+      "name": "Section_Page1_IndustryOverview",
+      "displayName": "1. Industry Overview",
+      "ordinal": 0,
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 1240,
+          "height": 60,
+          "z": 0,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"title\": \"Bluestock Mutual Fund Analytics - Industry Overview\"}}"
+        },
+        {
+          "x": 20,
+          "y": 85,
+          "width": 290,
+          "height": 100,
+          "z": 1,
+          "config": "{\"singleVisual\": {\"visualType\": \"cardVisual\", \"projections\": {\"Data\": [{\"queryRef\": \"Total AUM ?81L Cr\"}]}}}"
+        },
+        {
+          "x": 330,
+          "y": 85,
+          "width": 290,
+          "height": 100,
+          "z": 2,
+          "config": "{\"singleVisual\": {\"visualType\": \"cardVisual\", \"projections\": {\"Data\": [{\"queryRef\": \"SIP Inflows ?31,002 Cr\"}]}}}"
+        },
+        {
+          "x": 640,
+          "y": 85,
+          "width": 290,
+          "height": 100,
+          "z": 3,
+          "config": "{\"singleVisual\": {\"visualType\": \"cardVisual\", \"projections\": {\"Data\": [{\"queryRef\": \"Folios 26.12 Cr\"}]}}}"
+        },
+        {
+          "x": 950,
+          "y": 85,
+          "width": 310,
+          "height": 100,
+          "z": 4,
+          "config": "{\"singleVisual\": {\"visualType\": \"cardVisual\", \"projections\": {\"Data\": [{\"queryRef\": \"Active Schemes 1,908\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 200,
+          "width": 600,
+          "height": 490,
+          "z": 5,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"title\": \"Industry AUM Trend 2022-2025\"}}"
+        },
+        {
+          "x": 640,
+          "y": 200,
+          "width": 620,
+          "height": 490,
+          "z": 6,
+          "config": "{\"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"title\": \"AUM by AMC / Fund House (SBI Dominance)\"}}"
+        }
+      ]
+    },
+    {
+      "name": "Section_Page2_FundPerformance",
+      "displayName": "2. Fund Performance",
+      "ordinal": 1,
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 0,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"Fund House Slicer\"}}"
+        },
+        {
+          "x": 440,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 1,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"Category Slicer\"}}"
+        },
+        {
+          "x": 860,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 2,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"Plan Slicer (Direct/Regular)\"}}"
+        },
+        {
+          "x": 20,
+          "y": 80,
+          "width": 600,
+          "height": 330,
+          "z": 3,
+          "config": "{\"singleVisual\": {\"visualType\": \"scatterChart\", \"title\": \"Risk vs Return (Bubble = AUM)\"}}"
+        },
+        {
+          "x": 640,
+          "y": 80,
+          "width": 620,
+          "height": 330,
+          "z": 4,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"title\": \"NAV Line vs Nifty 50 TRI Benchmark\"}}"
+        },
+        {
+          "x": 20,
+          "y": 425,
+          "width": 1240,
+          "height": 280,
+          "z": 5,
+          "config": "{\"singleVisual\": {\"visualType\": \"tableEx\", \"title\": \"Sortable Fund Scorecard Table (Drill-Through Target)\"}}"
+        }
+      ]
+    },
+    {
+      "name": "Section_Page3_InvestorAnalytics",
+      "displayName": "3. Investor Analytics",
+      "ordinal": 2,
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 0,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"State Slicer\"}}"
+        },
+        {
+          "x": 440,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 1,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"Age Group Slicer\"}}"
+        },
+        {
+          "x": 860,
+          "y": 15,
+          "width": 400,
+          "height": 55,
+          "z": 2,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"title\": \"City Tier Slicer (T30 / B30)\"}}"
+        },
+        {
+          "x": 20,
+          "y": 80,
+          "width": 450,
+          "height": 620,
+          "z": 3,
+          "config": "{\"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"title\": \"Transaction Amount by State (Top 10)\"}}"
+        },
+        {
+          "x": 490,
+          "y": 80,
+          "width": 370,
+          "height": 300,
+          "z": 4,
+          "config": "{\"singleVisual\": {\"visualType\": \"donutChart\", \"title\": \"SIP / Lumpsum / Redemption Split\"}}"
+        },
+        {
+          "x": 880,
+          "y": 80,
+          "width": 380,
+          "height": 300,
+          "z": 5,
+          "config": "{\"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"title\": \"Age Group vs Avg SIP Amount\"}}"
+        },
+        {
+          "x": 490,
+          "y": 395,
+          "width": 770,
+          "height": 305,
+          "z": 6,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"title\": \"Monthly Transaction Volume Trend\"}}"
+        }
+      ]
+    },
+    {
+      "name": "Section_Page4_SIPMarketTrends",
+      "displayName": "4. SIP & Market Trends",
+      "ordinal": 3,
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 1240,
+          "height": 340,
+          "z": 0,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineStackedColumnComboChart\", \"title\": \"Dual-Axis: SIP Inflows (Bar) + Nifty 50 (Line) 2022-2025\"}}"
+        },
+        {
+          "x": 20,
+          "y": 370,
+          "width": 650,
+          "height": 335,
+          "z": 1,
+          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"title\": \"Category Inflow Heatmap / Matrix\"}}"
+        },
+        {
+          "x": 690,
+          "y": 370,
+          "width": 570,
+          "height": 335,
+          "z": 2,
+          "config": "{\"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"title\": \"Top 5 Categories by Net Inflow (FY25)\"}}"
+        }
+      ]
+    }
+  ]
+}
