@@ -64,12 +64,12 @@
           },
           {
             "name": "min_sip_amount",
-            "dataType": "double",
+            "dataType": "int64",
             "sourceColumn": "min_sip_amount"
           },
           {
             "name": "min_lumpsum_amount",
-            "dataType": "double",
+            "dataType": "int64",
             "sourceColumn": "min_lumpsum_amount"
           },
           {
@@ -96,10 +96,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\01_fund_master_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/01_fund_master_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"amfi_code\", Int64.Type}, {\"fund_house\", type text}, {\"scheme_name\", type text}, {\"category\", type text}, {\"sub_category\", type text}, {\"plan\", type text}, {\"launch_date\", type text}, {\"benchmark\", type text}, {\"expense_ratio_pct\", type number}, {\"exit_load_pct\", type number}, {\"min_sip_amount\", Int64.Type}, {\"min_lumpsum_amount\", Int64.Type}, {\"fund_manager\", type text}, {\"risk_category\", type text}, {\"sebi_category_code\", type text}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -142,10 +143,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\02_nav_history_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/02_nav_history_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"date\", type text}, {\"amfi_code\", Int64.Type}, {\"nav\", type number}, {\"is_forward_filled\", Int64.Type}, {\"daily_return_pct\", type number}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -171,7 +173,7 @@
           },
           {
             "name": "aum_crore",
-            "dataType": "int64",
+            "dataType": "double",
             "sourceColumn": "aum_crore"
           },
           {
@@ -188,10 +190,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\03_aum_by_fund_house_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/03_aum_by_fund_house_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"date\", type text}, {\"fund_house\", type text}, {\"aum_lakh_crore\", type number}, {\"aum_crore\", type number}, {\"num_schemes\", Int64.Type}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -207,7 +210,7 @@
           },
           {
             "name": "sip_inflow_crore",
-            "dataType": "int64",
+            "dataType": "double",
             "sourceColumn": "sip_inflow_crore"
           },
           {
@@ -239,10 +242,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\04_monthly_sip_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/04_monthly_sip_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"month\", type text}, {\"sip_inflow_crore\", type number}, {\"active_sip_accounts_crore\", type number}, {\"new_sip_accounts_lakh\", type number}, {\"sip_aum_lakh_crore\", type number}, {\"yoy_growth_pct\", type number}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -275,10 +279,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\05_category_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/05_category_inflows_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"month\", type text}, {\"category\", type text}, {\"net_inflow_crore\", type number}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -326,10 +331,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\06_industry_folio_count_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/06_industry_folio_count_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"month\", type text}, {\"total_folios_crore\", type number}, {\"equity_folios_crore\", type number}, {\"debt_folios_crore\", type number}, {\"hybrid_folios_crore\", type number}, {\"others_folios_crore\", type number}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -415,7 +421,7 @@
           },
           {
             "name": "aum_crore",
-            "dataType": "int64",
+            "dataType": "double",
             "sourceColumn": "aum_crore"
           },
           {
@@ -442,10 +448,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\07_scheme_performance_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/07_scheme_performance_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"amfi_code\", Int64.Type}, {\"scheme_name\", type text}, {\"fund_house\", type text}, {\"category\", type text}, {\"plan\", type text}, {\"return_1yr_pct\", type number}, {\"return_3yr_pct\", type number}, {\"return_5yr_pct\", type number}, {\"benchmark_3yr_pct\", type number}, {\"alpha\", type number}, {\"beta\", type number}, {\"sharpe_ratio\", type number}, {\"sortino_ratio\", type number}, {\"std_dev_ann_pct\", type number}, {\"max_drawdown_pct\", type number}, {\"aum_crore\", type number}, {\"expense_ratio_pct\", type number}, {\"morningstar_rating\", Int64.Type}, {\"risk_grade\", type text}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -456,7 +463,7 @@
         "columns": [
           {
             "name": "transaction_id",
-            "dataType": "int64",
+            "dataType": "string",
             "sourceColumn": "transaction_id"
           },
           {
@@ -481,7 +488,7 @@
           },
           {
             "name": "amount_inr",
-            "dataType": "int64",
+            "dataType": "double",
             "sourceColumn": "amount_inr"
           },
           {
@@ -533,10 +540,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\08_investor_transactions_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/08_investor_transactions_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"transaction_id\", type text}, {\"investor_id\", type text}, {\"transaction_date\", type text}, {\"amfi_code\", Int64.Type}, {\"transaction_type\", type text}, {\"amount_inr\", type number}, {\"state\", type text}, {\"city\", type text}, {\"city_tier\", type text}, {\"age_group\", type text}, {\"gender\", type text}, {\"annual_income_lakh\", type number}, {\"payment_mode\", type text}, {\"kyc_status\", type text}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -594,10 +602,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\09_portfolio_holdings_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/09_portfolio_holdings_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"amfi_code\", Int64.Type}, {\"stock_symbol\", type text}, {\"stock_name\", type text}, {\"sector\", type text}, {\"weight_pct\", type number}, {\"market_value_cr\", type number}, {\"current_price_inr\", type number}, {\"portfolio_date\", type text}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -630,10 +639,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\10_benchmark_indices_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/10_benchmark_indices_cleaned.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"date\", type text}, {\"index_name\", type text}, {\"close_value\", type number}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }
@@ -659,7 +669,7 @@
           },
           {
             "name": "month",
-            "dataType": "int64",
+            "dataType": "string",
             "sourceColumn": "month"
           },
           {
@@ -674,7 +684,7 @@
           },
           {
             "name": "day_of_week",
-            "dataType": "int64",
+            "dataType": "string",
             "sourceColumn": "day_of_week"
           },
           {
@@ -706,10 +716,11 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed\\dim_date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    Source = Csv.Document(File.Contents(\"D:/Admin/Documents/mutual_fund_analysis/data/processed/dim_date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {{\"date\", type text}, {\"year\", Int64.Type}, {\"quarter\", Int64.Type}, {\"month\", type text}, {\"month_name\", type text}, {\"day\", Int64.Type}, {\"day_of_week\", type text}, {\"day_name\", type text}, {\"is_weekend\", Int64.Type}, {\"fiscal_year\", type text}, {\"fiscal_quarter\", type text}})",
                 "in",
-                "    #\"Promoted Headers\""
+                "    #\"Changed Type\""
               ]
             }
           }

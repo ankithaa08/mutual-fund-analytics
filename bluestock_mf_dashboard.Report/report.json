@@ -69,7 +69,8 @@
           "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"f\", \"Entity\": \"fact_aum\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"fund_house\"}, \"Name\": \"fact_aum.fund_house\", \"NativeReferenceName\": \"fund_house\"}, {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"aum_lakh_crore\"}}, \"Function\": 0}, \"Name\": \"Sum(fact_aum.aum_lakh_crore)\", \"NativeReferenceName\": \"Sum of aum_lakh_crore\"}], \"OrderBy\": [{\"Direction\": 2, \"Expression\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"aum_lakh_crore\"}}, \"Function\": 0}}}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1]}]}, \"Version\": 1}, \"ExecutionMetricsKind\": 1}}]}",
           "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1]}, \"projectionActiveItems\": {\"Category\": [{\"queryRef\": \"fact_aum.fund_house\", \"suppressConcat\": false}]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"fund_house\", \"Name\": \"fact_aum.fund_house\", \"Type\": 2048}, {\"Restatement\": \"Sum of aum_lakh_crore\", \"Name\": \"Sum(fact_aum.aum_lakh_crore)\", \"Type\": 1}]}, \"visualElements\": [{\"DataRoles\": [{\"Name\": \"Category\", \"Projection\": 0, \"isActive\": true}, {\"Name\": \"Y\", \"Projection\": 1, \"isActive\": false}]}], \"selects\": [{\"displayName\": \"fund_house\", \"queryName\": \"fact_aum.fund_house\", \"roles\": {\"Category\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_aum\"}}, \"Property\": \"fund_house\"}}}, {\"displayName\": \"Sum of aum_lakh_crore\", \"queryName\": \"Sum(fact_aum.aum_lakh_crore)\", \"roles\": {\"Y\": true}, \"sort\": 2, \"sortOrder\": 0, \"type\": {\"category\": null, \"underlyingType\": 259}, \"expr\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_aum\"}}, \"Property\": \"aum_lakh_crore\"}}, \"Function\": 0}}}]}"
         }
-      ]
+      ],
+      "config": "{\"objects\": {\"background\": [{\"properties\": {\"image\": {\"image\": {\"url\": {\"expr\": {\"ResourcePackageItem\": {\"PackageName\": \"RegisteredResources\", \"PackageType\": 1, \"ItemName\": \"page1_industry_overview.png\"}}}}}, \"transparency\": {\"expr\": {\"Literal\": {\"Value\": \"0L\"}}}, \"scaling\": {\"expr\": {\"Literal\": {\"Value\": \"'Fit'\"}}}}}]}}"
     },
     {
       "name": "Section_P2",
@@ -138,7 +139,8 @@
           "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"f\", \"Entity\": \"fact_performance\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"scheme_name\"}, \"Name\": \"fact_performance.scheme_name\", \"NativeReferenceName\": \"scheme_name\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"category\"}, \"Name\": \"fact_performance.category\", \"NativeReferenceName\": \"category\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"return_3yr_pct\"}, \"Name\": \"fact_performance.return_3yr_pct\", \"NativeReferenceName\": \"return_3yr_pct\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"sharpe_ratio\"}, \"Name\": \"fact_performance.sharpe_ratio\", \"NativeReferenceName\": \"sharpe_ratio\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"expense_ratio_pct\"}, \"Name\": \"fact_performance.expense_ratio_pct\", \"NativeReferenceName\": \"expense_ratio_pct\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4]}]}, \"Version\": 1}, \"ExecutionMetricsKind\": 1}}]}",
           "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0, 1, 2, 3, 4]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"scheme_name\", \"Name\": \"fact_performance.scheme_name\", \"Type\": 2048}, {\"Restatement\": \"category\", \"Name\": \"fact_performance.category\", \"Type\": 2048}, {\"Restatement\": \"return_3yr_pct\", \"Name\": \"fact_performance.return_3yr_pct\", \"Type\": 1}, {\"Restatement\": \"sharpe_ratio\", \"Name\": \"fact_performance.sharpe_ratio\", \"Type\": 1}, {\"Restatement\": \"expense_ratio_pct\", \"Name\": \"fact_performance.expense_ratio_pct\", \"Type\": 1}]}, \"visualElements\": [{\"DataRoles\": [{\"Name\": \"Values\", \"Projection\": 0, \"isActive\": false}, {\"Name\": \"Values\", \"Projection\": 1, \"isActive\": false}, {\"Name\": \"Values\", \"Projection\": 2, \"isActive\": false}, {\"Name\": \"Values\", \"Projection\": 3, \"isActive\": false}, {\"Name\": \"Values\", \"Projection\": 4, \"isActive\": false}]}], \"selects\": [{\"displayName\": \"scheme_name\", \"queryName\": \"fact_performance.scheme_name\", \"roles\": {\"Values\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_performance\"}}, \"Property\": \"scheme_name\"}}}, {\"displayName\": \"category\", \"queryName\": \"fact_performance.category\", \"roles\": {\"Values\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_performance\"}}, \"Property\": \"category\"}}}, {\"displayName\": \"return_3yr_pct\", \"queryName\": \"fact_performance.return_3yr_pct\", \"roles\": {\"Values\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_performance\"}}, \"Property\": \"return_3yr_pct\"}}}, {\"displayName\": \"sharpe_ratio\", \"queryName\": \"fact_performance.sharpe_ratio\", \"roles\": {\"Values\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_performance\"}}, \"Property\": \"sharpe_ratio\"}}}, {\"displayName\": \"expense_ratio_pct\", \"queryName\": \"fact_performance.expense_ratio_pct\", \"roles\": {\"Values\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_performance\"}}, \"Property\": \"expense_ratio_pct\"}}}]}"
         }
-      ]
+      ],
+      "config": "{\"objects\": {\"background\": [{\"properties\": {\"image\": {\"image\": {\"url\": {\"expr\": {\"ResourcePackageItem\": {\"PackageName\": \"RegisteredResources\", \"PackageType\": 1, \"ItemName\": \"page2_fund_performance.png\"}}}}}, \"transparency\": {\"expr\": {\"Literal\": {\"Value\": \"0L\"}}}, \"scaling\": {\"expr\": {\"Literal\": {\"Value\": \"'Fit'\"}}}}}]}}"
     },
     {
       "name": "Section_P3",
@@ -217,7 +219,8 @@
           "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"f\", \"Entity\": \"fact_transactions\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"transaction_date\"}, \"Name\": \"fact_transactions.transaction_date\", \"NativeReferenceName\": \"transaction_date\"}, {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"amount_inr\"}}, \"Function\": 0}, \"Name\": \"Sum(fact_transactions.amount_inr)\", \"NativeReferenceName\": \"Sum of amount_inr\"}], \"OrderBy\": [{\"Direction\": 2, \"Expression\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"f\"}}, \"Property\": \"amount_inr\"}}, \"Function\": 0}}}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1]}]}, \"Version\": 1}, \"ExecutionMetricsKind\": 1}}]}",
           "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1]}, \"projectionActiveItems\": {\"Category\": [{\"queryRef\": \"fact_transactions.transaction_date\", \"suppressConcat\": false}]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"transaction_date\", \"Name\": \"fact_transactions.transaction_date\", \"Type\": 2048}, {\"Restatement\": \"Sum of amount_inr\", \"Name\": \"Sum(fact_transactions.amount_inr)\", \"Type\": 1}]}, \"visualElements\": [{\"DataRoles\": [{\"Name\": \"Category\", \"Projection\": 0, \"isActive\": true}, {\"Name\": \"Y\", \"Projection\": 1, \"isActive\": false}]}], \"selects\": [{\"displayName\": \"transaction_date\", \"queryName\": \"fact_transactions.transaction_date\", \"roles\": {\"Category\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_transactions\"}}, \"Property\": \"transaction_date\"}}}, {\"displayName\": \"Sum of amount_inr\", \"queryName\": \"Sum(fact_transactions.amount_inr)\", \"roles\": {\"Y\": true}, \"sort\": 2, \"sortOrder\": 0, \"type\": {\"category\": null, \"underlyingType\": 259}, \"expr\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"fact_transactions\"}}, \"Property\": \"amount_inr\"}}, \"Function\": 0}}}]}"
         }
-      ]
+      ],
+      "config": "{\"objects\": {\"background\": [{\"properties\": {\"image\": {\"image\": {\"url\": {\"expr\": {\"ResourcePackageItem\": {\"PackageName\": \"RegisteredResources\", \"PackageType\": 1, \"ItemName\": \"page3_investor_analytics.png\"}}}}}, \"transparency\": {\"expr\": {\"Literal\": {\"Value\": \"0L\"}}}, \"scaling\": {\"expr\": {\"Literal\": {\"Value\": \"'Fit'\"}}}}}]}}"
     },
     {
       "name": "Section_P4",
@@ -256,7 +259,53 @@
           "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"monthly_sip_inflows\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"month\"}, \"Name\": \"monthly_sip_inflows.month\", \"NativeReferenceName\": \"month\"}, {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"active_sip_accounts_crore\"}}, \"Function\": 4}, \"Name\": \"Sum(monthly_sip_inflows.active_sip_accounts_crore)\", \"NativeReferenceName\": \"Sum of active_sip_accounts_crore\"}], \"OrderBy\": [{\"Direction\": 2, \"Expression\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"active_sip_accounts_crore\"}}, \"Function\": 4}}}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1]}]}, \"Version\": 1}, \"ExecutionMetricsKind\": 1}}]}",
           "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1]}, \"projectionActiveItems\": {\"Category\": [{\"queryRef\": \"monthly_sip_inflows.month\", \"suppressConcat\": false}]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"month\", \"Name\": \"monthly_sip_inflows.month\", \"Type\": 2048}, {\"Restatement\": \"Sum of active_sip_accounts_crore\", \"Name\": \"Sum(monthly_sip_inflows.active_sip_accounts_crore)\", \"Type\": 1}]}, \"visualElements\": [{\"DataRoles\": [{\"Name\": \"Category\", \"Projection\": 0, \"isActive\": true}, {\"Name\": \"Y\", \"Projection\": 1, \"isActive\": false}]}], \"selects\": [{\"displayName\": \"month\", \"queryName\": \"monthly_sip_inflows.month\", \"roles\": {\"Category\": true}, \"type\": {\"category\": null, \"underlyingType\": 1}, \"expr\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"monthly_sip_inflows\"}}, \"Property\": \"month\"}}}, {\"displayName\": \"Sum of active_sip_accounts_crore\", \"queryName\": \"Sum(monthly_sip_inflows.active_sip_accounts_crore)\", \"roles\": {\"Y\": true}, \"sort\": 2, \"sortOrder\": 0, \"type\": {\"category\": null, \"underlyingType\": 259}, \"expr\": {\"Aggregation\": {\"Expression\": {\"Column\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"monthly_sip_inflows\"}}, \"Property\": \"active_sip_accounts_crore\"}}, \"Function\": 4}}}]}"
         }
-      ]
+      ],
+      "config": "{\"objects\": {\"background\": [{\"properties\": {\"image\": {\"image\": {\"url\": {\"expr\": {\"ResourcePackageItem\": {\"PackageName\": \"RegisteredResources\", \"PackageType\": 1, \"ItemName\": \"page4_sip_market_trends.png\"}}}}}, \"transparency\": {\"expr\": {\"Literal\": {\"Value\": \"0L\"}}}, \"scaling\": {\"expr\": {\"Literal\": {\"Value\": \"'Fit'\"}}}}}]}}"
+    }
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "name": "SharedResources",
+        "type": 2,
+        "items": [
+          {
+            "type": 202,
+            "path": "BaseThemes/CY25SU12.json",
+            "name": "CY25SU12"
+          }
+        ],
+        "disabled": false
+      }
+    },
+    {
+      "resourcePackage": {
+        "name": "RegisteredResources",
+        "type": 1,
+        "items": [
+          {
+            "type": 1,
+            "path": "page1_industry_overview.png",
+            "name": "page1_industry_overview.png"
+          },
+          {
+            "type": 1,
+            "path": "page2_fund_performance.png",
+            "name": "page2_fund_performance.png"
+          },
+          {
+            "type": 1,
+            "path": "page3_investor_analytics.png",
+            "name": "page3_investor_analytics.png"
+          },
+          {
+            "type": 1,
+            "path": "page4_sip_market_trends.png",
+            "name": "page4_sip_market_trends.png"
+          }
+        ],
+        "disabled": false
+      }
     }
   ]
 }
