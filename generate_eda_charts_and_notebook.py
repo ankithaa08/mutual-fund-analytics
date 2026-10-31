@@ -564,5 +564,5 @@ display(Image('../reports/figures/16_payment_modes_bar.png'))
 
 
 if __name__ == "__main__":
-    base_dir = r"D:\Admin\Documents\mutual_fund_analysis"
+    base_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
     generate_all_eda(base_dir)

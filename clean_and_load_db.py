@@ -532,7 +532,5 @@ def clean_and_build_pipeline(base_dir):
 
 
 if __name__ == "__main__":
-    base_dir = r"D:\Admin\Documents\mutual_fund_analysis"
-    if not os.path.exists(base_dir):
-        base_dir = r"C:\Users\Admin\.gemini\antigravity\scratch\mutual_fund_analysis"
+    base_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
     clean_and_build_pipeline(base_dir)
